@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Pessoa</title>
+</head>
+<body>
+<h1>Cadastrar Pessoa</h1>
+
+<form action="salvarPessoa" method="post">
+    <label>Nome:</label><br>
+    <input type="text" name="nome"><br>
+    <label>Sobrenome:</label><br>
+    <input type="text" name="sobrenome"><br>
+    <label>idade:</label><br>
+    <input type="number" name="idade"><br>
+    <input type="submit" value="salvar">
+</form>
+
+<table>
+    <tr th:each="pessoa : ${pessoas}">
+        <th th:text = "${pessoa.id}"></th>
+        <th th:text = "${pessoa.nome}"></th>
+        <th th:text = "${pessoa.sobrenome}"></th>
+        <th th:text = "${pessoa.idade}"></th>
+    </tr>
+
+</table>
+
+</body>
+</html>
