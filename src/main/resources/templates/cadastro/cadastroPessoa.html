@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Pessoa</title>
@@ -7,25 +7,31 @@
 <body>
 <h1>Cadastrar Pessoa</h1>
 
-<form action="salvarPessoa" method="post">
+<form action="salvarPessoa" method="post" th:object="${pessoaobj}">
+    <label>ID</label><br>
+    <input name="id" th:field="*{id}" readonly="readonly"><br>
     <label>Nome:</label><br>
-    <input type="text" name="nome"><br>
+    <input type="text" name="nome" th:field="*{nome}"><br>
     <label>Sobrenome:</label><br>
-    <input type="text" name="sobrenome"><br>
+    <input type="text" name="sobrenome" th:field="*{sobrenome}"><br>
     <label>idade:</label><br>
-    <input type="number" name="idade"><br>
-    <input type="submit" value="salvar">
+    <input type="number" name="idade" th:field="*{idade}"><br>
+    <input type="submit" value="salvar"><br>
+    <a href="/listapessoas">listar Pessoas</a>
 </form>
 
 <table>
     <tr th:each="pessoa : ${pessoas}">
-        <th th:text = "${pessoa.id}"></th>
-        <th th:text = "${pessoa.nome}"></th>
-        <th th:text = "${pessoa.sobrenome}"></th>
-        <th th:text = "${pessoa.idade}"></th>
+        <th th:text="${pessoa.id}"></th>
+        <th th:text="${pessoa.nome}"></th>
+        <th th:text="${pessoa.sobrenome}"></th>
+        <th th:text="${pessoa.idade}"></th>
+        <th><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></th>
+        <th><a th:href="@{/removerpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Excluir</a></th>
     </tr>
 
 </table>
+
 
 </body>
 </html>
