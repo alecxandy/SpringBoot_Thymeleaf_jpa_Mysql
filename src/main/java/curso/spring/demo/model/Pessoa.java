@@ -1,13 +1,15 @@
 package curso.spring.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Pessoa implements Serializable {
+
+    public Pessoa() {
+    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +20,17 @@ public class Pessoa implements Serializable {
     private String sobrenome;
 
     private int idade;
+
+    @OneToMany
+    private List<Telefone> telefoneList;
+
+    public List<Telefone> getTelefoneList() {
+        return telefoneList;
+    }
+
+    public void setTelefoneList(List<Telefone> telefoneList) {
+        this.telefoneList = telefoneList;
+    }
 
     public int getIdade() {
         return idade;
