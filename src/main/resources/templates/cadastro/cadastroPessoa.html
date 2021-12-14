@@ -17,9 +17,17 @@
     <label>idade:</label><br>
     <input type="number" name="idade" th:field="*{idade}"><br>
     <input type="submit" value="salvar"><br>
-    <a href="/listapessoas">listar Pessoas</a>
 </form>
-
+<br>
+<br>
+<form action="pesquisarpessoas" method="post">
+    <label>Pesquisar por nome:</label>
+    <input name="nomepesquisa">
+    <input type="submit" value="buscar">
+</form>
+<br>
+<br>
+<a href="/listapessoas">listar Pessoas</a>
 <table>
     <tr th:each="pessoa : ${pessoas}">
         <th th:text="${pessoa.id}"></th>
