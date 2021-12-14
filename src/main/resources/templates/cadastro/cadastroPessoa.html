@@ -31,7 +31,8 @@
 <table>
     <tr th:each="pessoa : ${pessoas}">
         <th th:text="${pessoa.id}"></th>
-        <th th:text="${pessoa.nome}"></th>
+        <th><a th:href="@{/telefonepessoa/{idpessoa}(idpessoa=${pessoa.id})}"><span th:text="${pessoa.nome}"></span></a>
+        </th>
         <th th:text="${pessoa.sobrenome}"></th>
         <th th:text="${pessoa.idade}"></th>
         <th><a th:href="@{/editarpessoa/{idpessoa}(idpessoa=${pessoa.id})}">Editar</a></th>

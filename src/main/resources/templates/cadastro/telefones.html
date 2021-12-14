@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Telefones</title>
+</head>
+<body>
+<h1>Tela de telefones</h1>
+<br>
+<a href="/cadastroPessoa">cadastro</a>
+<br>
+<div th:each="p:  ${pessoaobj}">
+    <div>
+        <p>Id: <span th:text="${p.id}"></span></p>
+        <p>Nome: <span th:text="${p.nome}"></span></p>
+        <p>Sobrenome: <span th:text="${p.sobrenome}"></span></p>
+        <p>Idade: <span th:text="${p.idade}"></span></p>
+    </div>
+</div>
+
+</body>
+</html>
