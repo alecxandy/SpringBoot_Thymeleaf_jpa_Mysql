@@ -10,7 +10,6 @@ public class Pessoa implements Serializable {
     public Pessoa() {
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

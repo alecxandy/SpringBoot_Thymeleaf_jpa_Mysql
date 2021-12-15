@@ -2,7 +2,9 @@ package curso.spring.demo.controller;
 
 
 import curso.spring.demo.model.Pessoa;
+import curso.spring.demo.model.Telefone;
 import curso.spring.demo.repository.PessoaRepository;
+import curso.spring.demo.repository.TelefoneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class PessoaController {
 
     @Autowired
     private PessoaRepository pessoaRepository;
+
+    @Autowired
+    private TelefoneRepository telefoneRepository;
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/cadastroPessoa")
@@ -75,11 +80,24 @@ public class PessoaController {
         return modelAndView;
     }
 
+    //metodo que direcionar para a tela de telefone lavando o objeto pessoa
     @GetMapping("telefonepessoa/{idpessoa}")
     public ModelAndView telefones(@PathVariable("idpessoa") Long idpessoa) {
         ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
         Optional<Pessoa> pessoaOptional = pessoaRepository.findById(idpessoa);
         modelAndView.addObject("pessoaobj", pessoaOptional.get());
+        modelAndView.addObject("telefones",telefoneRepository.getTelefones(idpessoa));
+        return modelAndView;
+    }
+
+    @PostMapping("/addfonepessoa/{pessoaid}")
+    public ModelAndView addFonePessoa(Telefone telefone, @PathVariable("pessoaid") Long pessoaid) {
+        Pessoa pessoa = pessoaRepository.findById(pessoaid).get();
+        telefone.setPessoa(pessoa);
+        telefoneRepository.save(telefone);
+        ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
+        modelAndView.addObject("pessoaobj", pessoa);
+        modelAndView.addObject("telefones",telefoneRepository.getTelefones(pessoaid));
         return modelAndView;
     }
 
