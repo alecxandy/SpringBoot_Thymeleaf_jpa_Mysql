@@ -20,7 +20,7 @@ public class Pessoa implements Serializable {
 
     private int idade;
 
-    @OneToMany
+    @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Telefone> telefoneList;
 
     public List<Telefone> getTelefoneList() {
