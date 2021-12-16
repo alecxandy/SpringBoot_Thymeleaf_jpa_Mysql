@@ -7,6 +7,12 @@
 <body>
 <h1>Cadastrar Pessoa</h1>
 
+<br>
+<div th:each=" m : ${msg}">
+    <span th:text="${m}"></span>
+</div>
+<br>
+
 <form action="salvarPessoa" method="post" th:object="${pessoaobj}">
     <label>ID</label><br>
     <input name="id" th:field="*{id}" readonly="readonly"><br>

@@ -1,6 +1,10 @@
 package curso.spring.demo.model;
 
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,10 +18,15 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "Nome não pode ser nulo")
+    @NotEmpty(message = "nome nao pode ser vazio")
     private String nome;
 
+    @NotNull(message = "sobrenome não pode ser nulo")
+    @NotEmpty(message = "sobrenome nao pode ser vazio")
     private String sobrenome;
 
+    @Min( value = 18,message = "idade nao pode ser menor que 18")
     private int idade;
 
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
