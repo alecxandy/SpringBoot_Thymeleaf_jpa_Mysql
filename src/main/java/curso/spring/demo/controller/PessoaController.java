@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -38,7 +39,7 @@ public class PessoaController {
 
 
     //salvando e redirecionando para apagina com uma lista de pessoas
-    @RequestMapping(method = RequestMethod.POST, value = "*/salvarPessoa")//um asterist iguinora tudo que vem antes
+    @RequestMapping(method = RequestMethod.POST, value = "/salvarPessoa")//um asterist iguinora tudo que vem antes
     public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {//BindingResult :usado para retorna a msg de validação
 
 
@@ -113,13 +114,32 @@ public class PessoaController {
 
     @PostMapping("/addfonepessoa/{pessoaid}")
     public ModelAndView addFonePessoa(Telefone telefone, @PathVariable("pessoaid") Long pessoaid) {
+
         Pessoa pessoa = pessoaRepository.findById(pessoaid).get();
-        telefone.setPessoa(pessoa);
-        telefoneRepository.save(telefone);
-        ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
-        modelAndView.addObject("pessoaobj", pessoa);
-        modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
-        return modelAndView;
+
+        if ((telefone != null && (telefone.getNumero() != null) && telefone.getNumero().isEmpty()
+                && (telefone.getTipo() != null) && telefone.getTipo().isEmpty())) {
+
+            ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
+            modelAndView.addObject("pessoaobj", pessoa);
+            modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
+
+
+            List<String> msg = new ArrayList<String>();
+            msg.add("nao pode conter campos  campos vazios");
+            modelAndView.addObject("msg", msg);
+
+            return modelAndView;
+        } else {
+
+            assert telefone != null;
+            telefone.setPessoa(pessoa);
+            telefoneRepository.save(telefone);
+            ModelAndView modelAndView = new ModelAndView("cadastro/telefones");
+            modelAndView.addObject("pessoaobj", pessoa);
+            modelAndView.addObject("telefones", telefoneRepository.getTelefones(pessoaid));
+            return modelAndView;
+        }
     }
 
     @GetMapping("/removertelefone/{idtelefone}")

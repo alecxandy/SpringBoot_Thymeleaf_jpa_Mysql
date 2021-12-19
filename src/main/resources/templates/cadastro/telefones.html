@@ -5,6 +5,13 @@
     <title>Telefones</title>
 </head>
 <body>
+
+<br>
+<div th:each=" m : ${msg}">
+    <span th:text="${m}"></span>
+</div>
+<br>
+
 <h1>Tela de telefones</h1>
 <br>
 <a href="/cadastroPessoa">cadastro</a>

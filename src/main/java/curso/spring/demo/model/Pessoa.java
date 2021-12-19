@@ -26,7 +26,7 @@ public class Pessoa implements Serializable {
     @NotEmpty(message = "sobrenome nao pode ser vazio")
     private String sobrenome;
 
-    @Min( value = 18,message = "idade nao pode ser menor que 18")
+    @Min(value = 18, message = "idade nao pode ser menor que 18")
     private int idade;
 
     @OneToMany(mappedBy = "pessoa", orphanRemoval = true, cascade = CascadeType.ALL)
