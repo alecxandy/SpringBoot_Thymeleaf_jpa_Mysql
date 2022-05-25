@@ -39,7 +39,7 @@ public class PessoaController {
 
 
     //salvando e redirecionando para apagina com uma lista de pessoas
-    @RequestMapping(method = RequestMethod.POST, value = "/salvarPessoa")//um asterist iguinora tudo que vem antes
+    @RequestMapping(method = RequestMethod.POST, value = "*/salvarPessoa")//um asterist iguinora tudo que vem antes
     public ModelAndView salvar(@Valid Pessoa pessoa, BindingResult bindingResult) {//BindingResult :usado para retorna a msg de validação
 
 
@@ -78,8 +78,9 @@ public class PessoaController {
 
     @GetMapping("/editarpessoa/{idpessoa}")
     public ModelAndView editar(@PathVariable("idpessoa") Long idpessoa) {
-        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(idpessoa);
         ModelAndView modelAndView = new ModelAndView("cadastro/cadastropessoa");
+        Optional<Pessoa> pessoaOptional = pessoaRepository.findById(idpessoa);
+        modelAndView.addObject("pessoas", pessoaRepository.findAll());
         modelAndView.addObject("pessoaobj", pessoaOptional.get());
         return modelAndView;
     }
